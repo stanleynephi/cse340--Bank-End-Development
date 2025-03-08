@@ -1,6 +1,157 @@
 /******* Change Box Model ***************/
-*,
-*:before,
-*:after {
-  box-sizing: border-box;
+
+
+/* *,
+*::before,
+*::after {
+  background-color: yellow;
+} */
+
+/* body{
+  padding: 0 15rem;
+  margin: 4px;
+  font-family: 'Arial', sans-serif;
+  width: 60%;
+  background: url("/images/site/small_check.jpg");
+  background-size: 100%;
+  z-index: -1;
+} */
+body::before{
+  content: "";
+  position: absolute;
+  background: url("/images/site/small_check.jpg");
+  width: 100%;
+  height: 100rem;
+  top: 0;
+  left: 0;
+  z-index: -1;
 }
+
+body{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+header{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: .2rem 2rem;
+}
+
+/* styling for the main part of the page */
+#wrapper{
+  background-color: white;
+  width: 70%;
+  border: 3px solid black;
+}
+
+nav>ul{
+  display: flex;
+  flex-direction: row;
+  justify-content:space-around;
+  background-color: black;
+  color: white;
+  font-weight: bold;
+  height: auto;
+  padding: 0.5rem;
+
+  li{
+    list-style: none;
+    text-transform: capitalize;
+  }
+}
+
+.heromessages{
+  margin: 10% auto;
+  height: auto;
+  justify-content: center;
+  align-items: center;
+  padding: 0 10rem;
+  height: auto;
+  z-index: 0;
+}
+
+.heromessageoverlay{
+  background-image: url('/images/vehicles/delorean-tn.jpg');
+  background-size: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: absolute;
+  top: 30%;
+  left: 22rem;
+  width: 50%;
+  height: 59%;
+  z-index: 1;
+}
+
+.message{
+  background-color: rgba(255, 255, 255, 0.425);
+  border: 3px solid black;
+  width: fit-content;
+  position: relative;
+  z-index: 1000;
+  padding: 1rem;
+}
+
+.message ul>li{
+  font-size: 20px;
+}
+
+.message>button{
+  height: 3rem;
+  width: 10rem;
+  background-color: black;
+  border: none;
+  color: white;
+  font-weight: bold;
+}
+
+.carnotes{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.notes{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.upgrades{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  flex-wrap: wrap;
+  width: 65%;
+}
+
+.reviews{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 50%;
+}
+
+.reviews ul{
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  font-weight: bold;
+}
+
+footer{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: black;
+  color: white;
+  height: 40%;
+}
+
+
+
