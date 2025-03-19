@@ -47,7 +47,6 @@ alter table if exists public.inventory
 on delete no action;
 
 
-
 --inserting the data into the classifications table
 insert into public.classification(classification_name)
 values ('custom'),
@@ -246,3 +245,10 @@ WHERE inv_id = 10;
 update public.inventory
 set inv_image = replace(inv_image,'/images/','/images/vehicles/'),
 inv_thumbnail = replace(inv_thumbnail,'/images/','/images/vehicles/')
+
+
+--inner join query data
+select inv_make,inv_model from public.inventory as inv
+join public.classification as cls 
+on inv.classification_id = cls.classification_id
+where cls.classification_id = 2
