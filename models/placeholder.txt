@@ -1,1 +1,2 @@
 This is only meant to preserved the folder it resides in. It can be deleted when actual files are created and stored.
+The inventory model is where the all the data interaction will be stored . This is where the data will be retrieved, updated, and deleted.

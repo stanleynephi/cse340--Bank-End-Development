@@ -1,0 +1,11 @@
+<!--create an ejs if statment with needed escapes for the error.ejs-->
+<% if (title) { %>
+    <h1><%= title %></h1>
+    <% } else {
+      res.redirect('/')
+    } 
+%>
+
+<!-- 
+//create the message block that will be needed -->
+<% message%>
