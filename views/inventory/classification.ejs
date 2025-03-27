@@ -3,20 +3,13 @@
 
 
  <!--if there is a title provided then the h1 tag will contain the value for the title else redirect.-->
-<% if(title){
-    <h1> <%= title %> </h1>
-    <%} else{
-        res.redirect('/')
-    }
+ <% if (title) { %>
+    <h1><%= title %></h1>
+    <% } else {
+      res.redirect('/')
+    } 
 %>
 
-// create a message block to help provide messages in case of errors
-<%# message() %>
-
-/* the ejs is meant to contain contents and not views hence all the code here is content based
-    and does not work any logic
-
-    provide the code to contain the display
-*/
+<%# messages() %>
 
 <%- grid %>

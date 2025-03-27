@@ -13,6 +13,7 @@ const static = require("./routes/static")
 const expresslayouts = require("express-ejs-layouts")
 const basecontroller = require("./controllers/basecontroller")
 const utilities = require("./utilities/")
+const inventory = require("./routes/inventoryRoute")
 
 
 /* ***********************
@@ -26,6 +27,7 @@ app.set("layout", "layouts/layout")
 /* ***********************
  * Routes
  ************************/
+/**index route */
 app.use(static)
 
 /* ***********************
@@ -33,6 +35,10 @@ app.use(static)
   * added an error handler to handle the anticipated errors in the code
  *************************/
 app.get("/",utilities.handleerrors(basecontroller.buildhome))
+
+/**add the route for the inventoryRoutes */
+app.use("/inv", inventory)
+
 
 /** adding the 404 routes to this code */
 app.use(async(req,res,next) => {

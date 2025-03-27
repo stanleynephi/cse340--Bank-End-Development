@@ -8,8 +8,27 @@ const pool = require("../database")
  */
 
 async function getclassificationdata() {
-    return await pool.query("select* from public.classification order by classification_name")
+    return await pool.query("select* from public.classification order by classification_id")
 }
 
-module.exports = {getclassificationdata}
+/**create a function to query the database based on the classification_id */
+
+async function getclassificationdatabyid(classification_id){
+    try {
+        const data = await pool.query(
+            `SELECT * FROM public.inventory AS i 
+            JOIN public.classification AS c 
+            ON i.classification_id = c.classification_id 
+            WHERE i.classification_id = $1`
+      , [classification_id]
+        )
+        return data;
+
+    } catch (error) {
+        console.log(error);
+        throw error;
+    }
+}
+
+module.exports = {getclassificationdata,getclassificationdatabyid}
 
