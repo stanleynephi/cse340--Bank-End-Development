@@ -20,7 +20,6 @@ async function buildClassificationById (req,res,next) {
 
       /**data using the id as a param */
       const data = await inventorymodel.getclassificationdatabyid(classification_id)
-      console.log(data.rows)
       /**build the grid using the data */
       const grid = await utility.gridlayout(data)
       /**provide the nav */

@@ -29,7 +29,7 @@ async function getnavigation(res,req,next) {
 async function gridlayout(data){
   /**get the data from the inventory */
   let grid
-  if(data.lenght > 0){
+  if(data.length > 0){
     grid = '<ul id="inv-display">'
     data.forEach(vehicle => { 
       grid += '<li>'
