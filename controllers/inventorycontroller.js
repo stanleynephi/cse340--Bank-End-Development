@@ -39,4 +39,36 @@ async function buildClassificationById (req,res,next) {
     
 }
 
-module.exports = {buildClassificationById}
+/**function to buildcardetails using the data from the model */
+async function buildcardetailsbyid (req,res,next){
+  /**since each car image url contains the car id, we need we will 
+   * use that as the parameter to get the car details
+   */
+  try {
+    console.log(req.params)
+    if(req.params){
+      console.log("params found" + req.params)
+    }
+    const inv_id = req.params.inv_id
+
+    /**get the data from the car based of the id */
+    const data = await inventorymodel.getvehicledatabyid(inv_id)
+    const details = await utility.cardetails(data)
+    let navigation = await utility.getnavigation()
+    console.log(data)
+    /**build the card details */
+    /**render the build */
+    res.render("./inventory/cardetails",
+      {
+        title: "Vehicles details",
+        navigation: navigation,
+        details: details
+      }
+    )
+    
+  } catch (error) {
+    console.log("There is an error building the car details" + error)
+  }
+}
+
+module.exports = {buildClassificationById,buildcardetailsbyid}

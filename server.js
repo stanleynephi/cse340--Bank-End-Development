@@ -37,7 +37,7 @@ app.use(static)
 app.get("/",utilities.handleerrors(basecontroller.buildhome))
 
 /**add the route for the inventoryRoutes */
-app.use("/inv", inventory)
+app.use("/inv", utilities.handleerrors(inventory))
 
 
 /** adding the 404 routes to this code */
