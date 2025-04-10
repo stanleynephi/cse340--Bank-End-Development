@@ -78,6 +78,29 @@ async function cardetails(data){
   `
 }
 
+/**build registration forms for name, email and password */
+async function login(){
+  /**return a form template that will be used for login */
+  return `
+    <form class="loginforms" action="/account/login" method="post">
+      <fieldset>
+        <legend>User Name</legend>
+        <label>
+          <span>Username</span>
+          <input type="text" name="username" class="username" placeholder="Enter yoour username" required>
+        </label>
+        <label>
+          <span>Password</span>
+          <input type="password" name="password" class="password" placeholder="Enter your password" required>
+        </label>
+      </fieldset>
+      <button type="submit" class="login_button">Login</button>
+      <p>Don't have an account? <a href="/account/register">Register here</a></p>
+    </form>
+  `
+}
+
+
 /**high order function to handle robust errors needed in the code */
 /**middleware for handling errors
  * wrap other function in this for 
@@ -86,4 +109,4 @@ async function cardetails(data){
 const handleerrors = (fn) => (req,res,next) => Promise.resolve(fn(req,res,next)).catch(next)
 
 
-module.exports = {getnavigation,handleerrors,gridlayout,cardetails}
+module.exports = {getnavigation,handleerrors,gridlayout,cardetails,login}

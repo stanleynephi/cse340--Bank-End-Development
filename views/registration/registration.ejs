@@ -1,0 +1,61 @@
+<%  if(title) { %>
+    <h1><%= title %>
+         
+    </h1>
+    <% } else{
+        res.redirect("/")
+    }
+%>
+
+
+<% if (errors) { %>
+  <ul class="notice">
+ <% errors.array().forEach(error => { %>
+   <li><%= error.msg %></li>
+<%  }) %>
+ </ul>
+<% } %>
+
+
+
+<!--add a flash message here to display the error message-->
+<%- message()  %>
+
+<form class="registrationforms form" method="POST" action="/account/register" >
+    <fieldset>
+      <legend>User Name</legend>
+      <label>
+        <span>First name</span>
+        <input type="text" name="account_firstname" class="account_firstname" placeholder="Enter your first name" required value="<%= locals.account_firstname %>">
+      </label>
+      <label>
+        <span>Last Name</span>
+        <input type="text" name="account_lastname" class="account_lastname" placeholder="Enter your last name" required value="<%= locals.account_lastname %>">
+      </label>
+    </fieldset>
+    <fieldset>
+      <legend>Email</legend>
+      <label>
+        <span>Email</span>
+        <input type="email" name="account_email" class="account_email" placeholder="Enter your email" required value="<%= locals.account_email %>">
+      </label>
+    </fieldset>
+    <fieldset>
+      <legend>Username and Password</legend>
+      <label>
+        <span>Username</span>
+        <input type="text" name="account_username" class="account_username" placeholder="Enter your username" required value="<%= locals.account_username %>">
+      </label>
+      <label>
+    <!-- <p class="password-info">
+      Password must be at least 12 characters long and contain at least one uppercase letter, 
+      one lowercase letter, one number, and one special character.
+    </p> -->
+    <span>Password</span>
+    <input type="password" name="account_password" class="account_password" placeholder="Enter your password" required >
+    </label>
+
+    </fieldset>
+    <button type="submit" class="registration_button">Register</button>
+    <p>Already have an account? <a href="/account/login">Login here</a></p>
+</form>

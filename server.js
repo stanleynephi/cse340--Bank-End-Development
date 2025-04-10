@@ -9,11 +9,18 @@ const express = require("express")
 const env = require("dotenv").config()
 const app = express()
 const static = require("./routes/static")
-/**adding express jsas our view engine add the express js as a required */
 const expresslayouts = require("express-ejs-layouts")
 const basecontroller = require("./controllers/basecontroller")
 const utilities = require("./utilities/")
 const inventory = require("./routes/inventoryRoute")
+const account = require("./routes/accountroute")
+const session = require("express-session")
+const flash = require("connect-flash")
+const pool = require("./database")
+const pgSession = require("connect-pg-simple")(session)
+const messages = require("express-messages")
+const bodyparser = require("body-parser")
+
 
 
 /* ***********************
@@ -22,6 +29,37 @@ const inventory = require("./routes/inventoryRoute")
 app.set("view engine", "ejs")
 app.use(expresslayouts)
 app.set("layout", "layouts/layout")
+
+
+
+/**creates an new session to be stored in the database*/
+app.use(session({
+  /**create a place to store the session */
+  store: new pgSession({
+    /**create a table in the database to contain the session if one is not available */
+    createTableIfMissing: true,
+    /**where the table should be created */
+    pool: pool,
+  }),
+  /**secret is a name value pair that will be used to protect the session */
+  secret: process.env.SESSION_SECRET,
+  resave: true,
+  saveUninitialized: true,
+  name: "sessionid",
+}))
+
+
+/**expess messages middleware */
+app.use(flash())
+app.use(function(req,res,next){
+  res.locals.message = messages(req,res)
+  next()
+})
+
+/**add the body parser as middleware */
+app.use(bodyparser.json())
+app.use(bodyparser.urlencoded({extended: true}))
+
 
 
 /* ***********************
@@ -38,6 +76,8 @@ app.get("/",utilities.handleerrors(basecontroller.buildhome))
 
 /**add the route for the inventoryRoutes */
 app.use("/inv", inventory)
+/**add the route for the form registration */
+app.use("/account", account)
 
 
 /** adding the 404 routes to this code */

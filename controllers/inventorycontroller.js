@@ -71,4 +71,73 @@ async function buildcardetailsbyid (req,res,next){
   }
 }
 
-module.exports = {buildClassificationById,buildcardetailsbyid}
+/**build the management view */
+async function buildmanagementview (req,res,next){
+  try {
+    /**build the page no data is been needed */
+    const navigations = await utility.getnavigation()
+    
+    /**render the page */
+    res.render("./inventory/management",
+      {
+        title: "Management",
+        navigation: navigations,
+      }
+    )
+  } catch (error) {
+    console.log("There is an error building the management view" + error)
+    
+  }
+}
+
+/**build the view for the add to classification */
+async function buildaddclassificationview (req,res,next){
+  try {
+    /**build the view for the classification */
+    const navigations = await utility.getnavigation()
+    /**render the page */
+    res.render("./inventory/add_classification",
+      {
+        title: "Add Classification",
+        navigation: navigations,
+      }
+    )
+  } catch (error) {
+    console.log("There is an error building the add classification view" + error)
+    
+  }
+}
+
+
+/** function to handle the form submission process */
+async function handlesubmission(req, res){
+  let navigation = await utility.getnavigation()
+  const {classification_name} = req.body
+  /**check the validation result */
+  const registerresult = await inventorymodel.insertclassification(
+    classification_name
+  )
+
+  /**check the result */
+  if (registerresult){
+    /**redirect to the management view */
+    req.flash("notice", "Classification added successfully")
+    res.status(201).render(
+      "inventory/management",{
+        
+        title: "Management",
+        navigation,
+      }
+    )
+  }else{
+    req.flash("notice", "Sorry there was an error processing the classification")
+    res.status(501).render(
+      "inventory/add_classification",{
+        title: "Add Classification",
+        navigation,
+      }
+    )
+  }
+}
+
+module.exports = {buildClassificationById,buildcardetailsbyid,buildmanagementview,buildaddclassificationview,handlesubmission}

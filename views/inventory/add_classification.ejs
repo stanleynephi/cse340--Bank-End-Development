@@ -1,0 +1,20 @@
+<!--add to classification form and header title-->
+<% if (title) { %>
+    <h1><%= title %></h1>
+    <%} else {
+        res.redirect("/");
+    }
+%>
+
+
+<!--form for classification submission-->
+<form class="add_classification_form" method="post" action="/inventory/add_classification">
+    <fieldset>
+        <legend>Add Classification</legend>
+        <label>
+            <span>Classification Name</span>
+            <input type="text" name="classification_name" class="classification_name" placeholder="Enter classification name" required value="<%= locals.classification_name %>">
+        </label>
+    </fieldset>
+    <button type="submit" class="add_classification_button">Add Classification</button>
+</form>
