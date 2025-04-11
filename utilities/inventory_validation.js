@@ -11,6 +11,12 @@ function classificationrules(){
         .trim()
         .isLength({min: 2})
         .withMessage("Please enter a classification name with at least 2 characters")
+        .custom(async(classification_name) => {
+            const existingClassification = await inventorymodel.findOne(classification_name)
+            if(existingClassification){
+                throw new Error("Classification already exists")
+            }
+        })
     ]
 }
 
@@ -33,6 +39,8 @@ async function checkaddition(req, res, next) {
 
         return
     }
+
+    next()
 }
 
 

@@ -100,6 +100,7 @@ async function buildaddclassificationview (req,res,next){
       {
         title: "Add Classification",
         navigation: navigations,
+        errors: null,
       }
     )
   } catch (error) {
@@ -113,7 +114,9 @@ async function buildaddclassificationview (req,res,next){
 async function handlesubmission(req, res){
   let navigation = await utility.getnavigation()
   const {classification_name} = req.body
-  /**check the validation result */
+  /**check the validation result and then use the model from the database to insert 
+   * the value into it.
+   */
   const registerresult = await inventorymodel.insertclassification(
     classification_name
   )
@@ -132,7 +135,7 @@ async function handlesubmission(req, res){
   }else{
     req.flash("notice", "Sorry there was an error processing the classification")
     res.status(501).render(
-      "inventory/add_classification",{
+      "/add_classification",{
         title: "Add Classification",
         navigation,
       }
@@ -140,4 +143,6 @@ async function handlesubmission(req, res){
   }
 }
 
-module.exports = {buildClassificationById,buildcardetailsbyid,buildmanagementview,buildaddclassificationview,handlesubmission}
+module.exports = {buildClassificationById,buildcardetailsbyid,
+  buildmanagementview,buildaddclassificationview,
+  handlesubmission}

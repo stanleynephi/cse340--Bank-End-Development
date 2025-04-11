@@ -61,5 +61,18 @@ async function insertclassification(classification_name){
     }
 }
 
-module.exports = {getclassificationdata,getclassificationdatabyid,getvehicledatabyid,insertclassification}
+/** function to find the classification type in the database */
+async function findOne(classification_name){
+    try{
+        const sql = `SELECT * FROM public.classification WHERE classification_name = $1`
+        const existingclassification = await pool.query(sql,[classification_name])
+        return existingclassification.rowCount
+    }
+    catch(error){
+        return error.message
+    }
+}
+
+module.exports = {getclassificationdata,getclassificationdatabyid,getvehicledatabyid,
+    insertclassification,findOne}
 
