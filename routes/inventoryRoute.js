@@ -18,14 +18,18 @@ router.get("/type/:classificationId",utilities.handleerrors(controller.buildClas
 router.get("/detail/:inv_id",utilities.handleerrors(controller.buildcardetailsbyid))
 
 
-/**route to the management page and the add to classification page*/
+// /**route to the management page and the add to classification page*/
+// router.get("/management",utilities.handleerrors(controller.buildmanagementview))
+// router.get("/add_classification",controller.buildaddclassificationview)
+// router.get("/add_inventory",utilities.handleerrors(controller.buildinventoryview))
+/**build the add_classifiacation route */
 router.get("/management",utilities.handleerrors(controller.buildmanagementview))
-router.get("/management/add_classification",utilities.handleerrors(controller.buildaddclassificationview))
-router.get("/management/add_inventory",utilities.handleerrors(controller.buildinventoryview))
+router.get("/addinventory",utilities.handleerrors(controller.buildinventoryview))
+router.get("/addclassification",utilities.handleerrors(controller.buildaddclassificationview))
 
 /**create a route post to process the data from the form */
 router.post(
-    "/management/add_classification",
+    "/addclassification",
     /**validation rules */
     classificationvalidation.classificationrules(),
     /**check the validation */
@@ -36,7 +40,7 @@ router.post(
 
 /**create a route post for the inventory form */
 router.post(
-    "/management/add_inventory",
+    "/addinventory",
     /**validation rules */
     classificationvalidation.addtoinventoryrules(),
     /**check the validation */

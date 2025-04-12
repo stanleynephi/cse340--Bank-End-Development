@@ -96,7 +96,7 @@ async function buildaddclassificationview (req,res,next){
     /**build the view for the classification */
     const navigations = await utility.getnavigation()
     /**render the page */
-    res.render("./inventory/add_classification",
+    res.render("./inventory/addclassification",
       {
         title: "Add Classification",
         navigation: navigations,
@@ -126,7 +126,7 @@ async function handlesubmission(req, res){
     /**redirect to the management view */
     req.flash("notice", "Classification added successfully")
     res.status(201).render(
-      "inventory/management",{
+      "./inventory/management",{
         
         title: "Management",
         navigation,
@@ -135,7 +135,7 @@ async function handlesubmission(req, res){
   }else{
     req.flash("notice", "Sorry there was an error processing the classification")
     res.status(501).render(
-      "/add_classification",{
+      "./inventory/addclassification",{
         title: "Add Classification",
         navigation,
       }
@@ -151,7 +151,7 @@ async function buildinventoryview(req,res,next){
     /**get the classification list */
     const classificationlist = await utility.buildclassificationlist()
     /**render the page */
-    res.render("./inventory/add_inventory",
+    res.render("./inventory/addinventory",
       {
         title: "Inventory",
         navigation: navigations,
@@ -182,7 +182,7 @@ async function handleinventorysubmission(req,res) {
     /**redirect to inventory view */
     req.flash("notice", "Inventory added successfully")
     res.status(201).render(
-      "inventory/management",{
+      "./inventory/management",{
         title: "Management",
         navigation
       }
@@ -191,7 +191,7 @@ async function handleinventorysubmission(req,res) {
     req.flash("notice", "Sorry there was an error processing the inventory")
     const classificationlist = await utility.buildclassificationlist()
     res.status(501).render(
-      "inventory/add_inventory",{
+      "./inventory/addinventory",{
         title: "Add Inventory",
         navigation,
         errors: null,
@@ -203,6 +203,10 @@ async function handleinventorysubmission(req,res) {
 
 
 module.exports = {buildClassificationById,buildcardetailsbyid,
-  buildmanagementview,buildaddclassificationview,
+  buildmanagementview,
+  /**build the add classification view  and handle form submission*/
+  buildaddclassificationview,
   handlesubmission,
+
+/**handles the build inventory view and also form submission */
 buildinventoryview,handleinventorysubmission}
