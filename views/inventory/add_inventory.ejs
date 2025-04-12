@@ -1,0 +1,75 @@
+<!--add the title and the error-->
+<% if (title) { %>
+    <h1><%= title %></h1>
+    <%} else {
+        res.redirect("/");
+    }
+%>
+
+<!--add the error display message-->
+
+<% if (errors) { %>
+    <ul class="notice">
+   <% errors.array().forEach(error => { %>
+     <li><%= error.msg %></li>
+  <%  }) %>
+   </ul>
+  <% } 
+%>
+
+
+
+<!--create a form for the inventory-->
+<form class="add_inventory" method="POST">
+    <fieldset>
+        <legend>Inventory Make, Model and Year</legend>
+        <label>
+            <span>Inventory Make</span>
+            <input type="text" name="inv_make" class="inv_make" placeholder="Enter the make of the inventory" required>
+        </label>
+        <label>
+            <span>Inventory Model</span>
+            <input type="text" name="inv_model" class="inv_model" placeholder="Enter the model of the inventory" required>
+        </label>
+        <label>
+            <span>Inventory Year</span>
+            <input type="text" name="inv_year" class="inv_year" placeholder="Enter the year of the inventory" required>
+        </label>
+    </fieldset>
+    <fieldset>
+        <legend>Inventory Description, Image and Thumbnail</legend>
+        <label>
+            <span>Inventory Description</span>
+            <textarea name="inv_description" class="inv_description" placeholder="Enter the vehicle description" required></textarea>
+        </label>
+        <label>
+            <span>Inventory Image</span>
+            <input type="text" name="inv_image" class="inv_image" placeholder="Enter the image URL of the inventory" required>
+        </label>
+        <label>
+            <span>Inventory Thumbnail</span>
+            <input type="text" name="inv_thumbnail" class="inv_thumbnail" placeholder="Enter the thumbnail URL of the inventory" required>
+        </label>
+    </fieldset>
+    <fieldset>
+        <legend>Inventory Miles, Price, Color and Vehicle Classification</legend>
+        <label>
+            <span>Vehicle Milage</span>
+            <input type="number" name="inv_miles" class="inv_miles" placeholder="Enter the vehicle milage" required>
+        </label>
+        <label>
+            <span>Vehicle Price</span>
+            <input type="number" name="inv_price" class="inv_price" placeholder="Enter the vehicle price" required>
+        </label>
+        <label>
+            <span>Vehicle Color</span>
+            <input type="text" name="inv_color" class="inv_color" placeholder="Enter the vehicle color" required>
+        </label>
+        <!--add the classification dropdown-->
+        <label>
+            <span>Vehicle Classification</span>
+            <%- classificationlist %>
+        </label>
+    </fieldset>
+    <button type="submit" class="add_inventorybutton">Add To Inventory</button>
+</form>

@@ -73,6 +73,31 @@ async function findOne(classification_name){
     }
 }
 
+/** function to add inventory items to the inventory in the database */
+/** function to add inventory items to the inventory in the database */
+async function addinventory(inv_make, inv_model, inv_year, inv_price, inv_miles, inv_color, inv_description, inv_image, inv_thumbnail, classification_id) {
+    try {
+        const sql = `
+            INSERT INTO public.inventory(
+                inv_make, inv_model, inv_year, inv_price, inv_miles, inv_color, inv_description, inv_image, inv_thumbnail, classification_id
+            )
+            VALUES(
+                $1, $2, $3, $4, $5, $6, $7, $8, $9, $10
+            )
+        `
+        const values = [
+            inv_make, inv_model, inv_year, inv_price, inv_miles, inv_color,
+            inv_description, inv_image, inv_thumbnail, classification_id
+        ]
+        const result = await pool.query(sql, values)
+        return result.rows[0]
+    } catch (error) {
+        console.log("Error adding inventory: " + error)
+    }
+}
+
+
 module.exports = {getclassificationdata,getclassificationdatabyid,getvehicledatabyid,
-    insertclassification,findOne}
+    insertclassification,findOne,
+    addinventory}
 

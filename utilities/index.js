@@ -100,6 +100,23 @@ async function login(){
   `
 }
 
+/**build for the select dropdown menu for the form with the classifiaction names */
+async function buildclassificationlist(classification_id = null) {
+  let data = await invmodel.getclassificationdata();
+  let classificationlist =
+    '<select name="classification_id" id="classificationList" required>';
+  classificationlist += "<option value=''>Choose a Classification</option>";
+  data.rows.forEach((row) => {
+    classificationlist += `<option value="${row.classification_id}"`;
+    if (classification_id !== null && row.classification_id == classification_id) {
+      classificationlist += " selected";
+    }
+    classificationlist += `>${row.classification_name}</option>`;
+  });
+  classificationlist += "</select>";
+  return classificationlist;
+}
+
 
 /**high order function to handle robust errors needed in the code */
 /**middleware for handling errors
@@ -109,4 +126,4 @@ async function login(){
 const handleerrors = (fn) => (req,res,next) => Promise.resolve(fn(req,res,next)).catch(next)
 
 
-module.exports = {getnavigation,handleerrors,gridlayout,cardetails,login}
+module.exports = {getnavigation,handleerrors,gridlayout,cardetails,login,buildclassificationlist}

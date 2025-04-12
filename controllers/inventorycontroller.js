@@ -143,6 +143,66 @@ async function handlesubmission(req, res){
   }
 }
 
+/**build the inventory view */
+async function buildinventoryview(req,res,next){
+  try {
+    /**build the inventory view */
+    const navigations = await utility.getnavigation()
+    /**get the classification list */
+    const classificationlist = await utility.buildclassificationlist()
+    /**render the page */
+    res.render("./inventory/add_inventory",
+      {
+        title: "Inventory",
+        navigation: navigations,
+        classificationlist,
+        errors: null,
+
+      }
+    )
+  } catch (error) {
+    console.log("There is an error building the inventory view" + error)
+    
+  }
+}
+
+/**handle the inventory submission */
+async function handleinventorysubmission(req,res) {
+  let navigation = await utility.getnavigation()
+  const {inv_make,inv_model,inv_year,inv_price,inv_miles,inv_color,inv_description,inv_image,inv_thumbnail,classification_id} = req.body
+
+    /**check the validation result and then use the model from the database to insert 
+   * the value into it.
+   */
+  const registerresult = await inventorymodel.addinventory(
+    inv_make,inv_model,inv_year,inv_price,inv_miles,inv_color,inv_description,inv_image,inv_thumbnail,classification_id)
+
+  /**check the result */
+  if (registerresult){
+    /**redirect to inventory view */
+    req.flash("notice", "Inventory added successfully")
+    res.status(201).render(
+      "inventory/management",{
+        title: "Management",
+        navigation
+      }
+    )
+  } else{
+    req.flash("notice", "Sorry there was an error processing the inventory")
+    const classificationlist = await utility.buildclassificationlist()
+    res.status(501).render(
+      "inventory/add_inventory",{
+        title: "Add Inventory",
+        navigation,
+        errors: null,
+        classificationlist
+      }
+    )
+  }
+}
+
+
 module.exports = {buildClassificationById,buildcardetailsbyid,
   buildmanagementview,buildaddclassificationview,
-  handlesubmission}
+  handlesubmission,
+buildinventoryview,handleinventorysubmission}
